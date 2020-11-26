@@ -90,6 +90,11 @@ footer {
 		color: white;
 		margin: 0 10px;
 		cursor: pointer;
+
+		&.end {
+			background-color: gray;
+			cursor: initial;
+		}
 	}
 }
 
@@ -99,10 +104,14 @@ footer {
 	margin-bottom: $footer-height + 10px;
 }
 
-ul {
-	list-style-type: none;
-	margin-left: 3px;
-	padding-left: 3px;
+ol {
+	padding-top: 20px;
+	padding-bottom: 50px;
+
+	li {
+		line-height: 2;
+		font-size: 1.25em;
+	}
 }
 
 .chat {

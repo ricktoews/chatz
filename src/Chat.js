@@ -1,11 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import data from './data/chatz';
 import { isChat, parseChatz } from './utils/helpers';
 const chatz = data.filter(chat => isChat(chat));
+const maxNdx = chatz.length - 1;
 
 function Chat(props) {
-	const ndx = props.match.params.ndx;
+	const ndx = 1*props.match.params.ndx;
+	const isFirst = ndx === 0;
+	const isLast = ndx === chatz.length - 1;
+
 	const chat = parseChatz(chatz[ndx]);
 	const title = chat.title.split('\n');
 	const date = new Date(chat.date);
@@ -14,8 +18,8 @@ function Chat(props) {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		console.log('chatz useEffect');
-	});
+		console.log('chatz useEffect', ndx, (ndx === 0), isFirst, isLast);
+	}, [ndx]);
 
 	const handleTOC = e => {
 		console.log('clicked TOC');
@@ -25,12 +29,16 @@ function Chat(props) {
 
 	const handlePrev = e => {
 		e.preventDefault();
-		history.push('./' + (ndx - 1));		
+		if (!isFirst) {
+			history.push('./' + (ndx - 1));		
+		}
 	};
 
 	const handleNext = e => {
 		e.preventDefault();
-		history.push('./' + (1*ndx + 1));		
+		if (!isLast) {
+			history.push('./' + (1*ndx + 1));		
+		}
 	};
 
 	return (
@@ -61,8 +69,8 @@ function Chat(props) {
 	  </div>
 
 	  <footer className="chatz">
-	    <div className="prev" onClick={handlePrev}><span class="glyphicon glyphicon-chevron-left"></span></div>
-	    <div className="next" onClick={handleNext}><span class="glyphicon glyphicon-chevron-right"></span></div>
+	    <div className={'prev' + (isFirst ? ' end' : '')} onClick={handlePrev}><span class="glyphicon glyphicon-chevron-left"></span></div>
+	    <div className={'next' + (isLast ? ' end' : '')} onClick={handleNext}><span class="glyphicon glyphicon-chevron-right"></span></div>
 	  </footer>
 	</div>
 	);

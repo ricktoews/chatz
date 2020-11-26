@@ -3,6 +3,7 @@ import { isChat, parseChatz } from './utils/helpers';
 const chatz = data.filter(chat => isChat(chat));
 
 function TOC() {
+
 	return (
 	<div className="App">
           <header>
@@ -12,12 +13,12 @@ function TOC() {
 	    </div>
 	  </header>
 	  <div className="chatz-content">
-	    <ul>
+	    <ol>
 	    {chatz.map((chat, ndx) => {
 		let item = parseChatz(chat);
         	return <li key={ndx}><a href={'/chat/' + ndx}>{item.title}</a></li>
 	    })}
-	    </ul>
+	    </ol>
 	  </div>
 
 	  <footer className="copyright">
