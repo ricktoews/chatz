@@ -21,6 +21,10 @@ function Chat(props) {
 		if (l.match(/^Me:/)) { className += ' scott'; }
 		return <div className={className}>{l}</div>
 	  })}
+	  <div className="nav">
+	    <div className="prev"><a href={'./' + (ndx - 1)}>Previous</a></div>
+	    <div className="next"><a href={'./' + (1*ndx + 1)}>Next</a></div>
+	  </div>
 	</div>
 	);
 }
